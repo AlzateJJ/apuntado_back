@@ -15,7 +15,7 @@ const Card = sequelize.define('card', {
         allowNull: false
     },
     // owner_id
-    // game_id
+    // deck_id
 });
 
 module.exports = Card;
