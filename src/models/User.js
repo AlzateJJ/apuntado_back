@@ -14,6 +14,19 @@ const User = sequelize.define('user', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    points: {
+        type: DataTypes.INTEGER,
+        // allowNull: false
+    },
+    isPlaying: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    },
+    // game_id
 });
 
 module.exports = User;

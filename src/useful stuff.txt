@@ -1,0 +1,2 @@
+link base de datos:
+https://dbdiagram.io/d/blog-database-schema-663a61779e85a46d553bd958
