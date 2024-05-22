@@ -1,5 +1,7 @@
 const catchError = require('../utils/catchError');
 const User = require('../models/User');
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
 
 const getAll = catchError(async(req, res) => {
     const results = await User.findAll();
@@ -7,7 +9,14 @@ const getAll = catchError(async(req, res) => {
 });
 
 const create = catchError(async(req, res) => {
-    const result = await User.create(req.body);
+    const { firstName, lastName, email, password} = req.body
+    const hashedPassword = await bcrypt.hash(password, 10)
+    const result = await User.create({
+        firstName,
+        lastName,
+        email,
+        password: hashedPassword
+    });
     return res.status(201).json(result);
 });
 
@@ -34,10 +43,33 @@ const update = catchError(async(req, res) => {
     return res.json(result[1][0]);
 });
 
+const login = catchError(async(req, res) => {
+    const { email, password } = req.body
+    const createdUser = await User.findOne( { where: { email : email } } )
+    if (!createdUser) return res.status(404).json({message: "no existe el usuario :("})
+    const validPassword = await bcrypt.compare(password, createdUser.password)
+    if (!validPassword) return res.status(404).json({ message: "contraseña inválida :/" })
+
+    const accessToken = jwt.sign(
+        { user: createdUser }, // payload
+        process.env.TOKEN_SECRET, // clave secreta
+        { expiresIn: '1d' } // OPCIONAL: Tiempo en el que expira el token
+    )
+        
+    return res.status(200).json({accessToken, createdUser})
+})
+
+const findMe = catchError(async(req, res) => {
+    const user = req.user
+    return res.json(user)
+})
+
 module.exports = {
     getAll,
     create,
     getOne,
     remove,
-    update
+    update,
+    login,
+    findMe
 }

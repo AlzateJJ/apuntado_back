@@ -1,8 +1,9 @@
 const catchError = require('../utils/catchError');
 const Game = require('../models/Game');
+const User = require('../models/User');
 
 const getAll = catchError(async(req, res) => {
-    const results = await Game.findAll();
+    const results = await Game.findAll({ include: [User]});
     return res.json(results);
 });
 

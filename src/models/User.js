@@ -12,7 +12,8 @@ const User = sequelize.define('user', {
     },
     email: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     password: {
         type: DataTypes.STRING,
@@ -24,9 +25,15 @@ const User = sequelize.define('user', {
     },
     isPlaying: {
         type: DataTypes.BOOLEAN,
-        allowNull: false
+        // allowNull: false
     },
     // game_id
 });
+
+// User.prototype.toJSON = function () {
+//     const values = Object.assign({}, this.get());
+//     delete values.password;
+//     return values;
+// }
 
 module.exports = User;
