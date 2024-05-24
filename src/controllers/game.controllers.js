@@ -8,8 +8,21 @@ const getAll = catchError(async(req, res) => {
 });
 
 const create = catchError(async(req, res) => {
-    const result = await Game.create(req.body);
-    return res.status(201).json(result);
+    const { name, max_players } = req.body
+    const admin = req.user
+    console.log(admin)
+    if (admin.gameId) return (res.status(404).json({message: "el usuario ya está en un juego, no puede participar en otro! :/"}))
+    
+    const newGame = await Game.create({
+        name,
+        max_players,
+        started: false,
+        num_rounds: 0,
+        adminUserID: admin.id
+    });
+    await newGame.setUsers(admin.id)
+    
+    return res.status(201).json(newGame);
 });
 
 const getOne = catchError(async(req, res) => {
@@ -35,10 +48,22 @@ const update = catchError(async(req, res) => {
     return res.json(result[1][0]);
 });
 
+const setGameUsers = catchError(async(req, res) => {
+    const { id } = req.params
+    const game = await Game.findByPk(id)
+    if (!game) return (res.status(404).json({message: "not found game!! :(("}))
+    
+    await game.setUsers(req.body)
+
+    const users = await game.getUsers()
+    return res.status(200).json(users)
+})
+
 module.exports = {
     getAll,
     create,
     getOne,
     remove,
-    update
+    update,
+    setGameUsers
 }
