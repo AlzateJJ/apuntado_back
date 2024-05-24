@@ -30,10 +30,12 @@ const User = sequelize.define('user', {
     // game_id
 });
 
-// User.prototype.toJSON = function () {
-//     const values = Object.assign({}, this.get());
-//     delete values.password;
-//     return values;
-// }
+User.prototype.toJSON = function () {
+    const values = Object.assign({}, this.get());
+    delete values.password;
+    delete values.createdAt;
+    delete values.updatedAt;
+    return values;
+}
 
 module.exports = User;

@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, INTEGER } = require('sequelize');
 const sequelize = require('../utils/connection');
 
 const Game = sequelize.define('game', {
@@ -21,6 +21,10 @@ const Game = sequelize.define('game', {
     winner_id: {
         type: DataTypes.INTEGER,
     },
+    max_players: {
+        type: INTEGER,
+        allowNull: false
+    }
     // startHour: {
     //     type: DataTypes.DATE,
     //     allowNull: false
