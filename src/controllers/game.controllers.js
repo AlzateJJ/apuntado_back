@@ -16,7 +16,7 @@ const create = catchError(async(req, res) => {
     const newGame = await Game.create({
         name,
         max_players,
-        started: false,
+        // started: false,
         num_rounds: 0,
         adminUserID: admin.id
     });

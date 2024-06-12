@@ -10,8 +10,8 @@ Card.belongsTo(User)
 Game.hasMany(User)
 User.belongsTo(Game)
 
-Game.belongsTo(Deck)
-Deck.belongsTo(Game) // validar cuando se esten acabando las cartas
+Game.hasOne(Deck)
+Deck.hasOne(Game) // validar cuando se esten acabando las cartas
 
 Deck.hasMany(Card)
 Card.belongsTo(Deck)

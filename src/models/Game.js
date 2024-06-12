@@ -13,10 +13,12 @@ const Game = sequelize.define('game', {
     },
     started: {
         type: DataTypes.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        defaultValue: false
     },
     num_rounds: {
         type: DataTypes.INTEGER,
+        defaultValue: 0
         // allowNull: false
     },
     winner_id: {
