@@ -11,16 +11,18 @@ const create = catchError(async(req, res) => {
     const { name, max_players } = req.body
     const admin = req.user
     console.log(admin)
-    if (admin.gameId) return (res.status(404).json({message: "el usuario ya está en un juego, no puede participar en otro! :/"}))
+    if (admin.isPlaying) return (res.status(404).json({message: "el usuario ya está en un juego, no puede participar en otro! :/"}))
     
     const newGame = await Game.create({
         name,
         max_players,
-        // started: false,
-        num_rounds: 0,
         adminUserID: admin.id
     });
-    await newGame.setUsers(admin.id)
+
+    await newGame.setUsers([admin.id])
+
+    // admin.gameId = newGame.id;
+    // await admin.save(); // Guarda los cambios en la base de datos
     
     return res.status(201).json(newGame);
 });

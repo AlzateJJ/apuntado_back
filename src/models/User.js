@@ -29,7 +29,7 @@ const User = sequelize.define('user', {
         defaultValue: false
         // allowNull: false
     },
-    // game_id
+    // gameId
 });
 
 User.prototype.toJSON = function () {

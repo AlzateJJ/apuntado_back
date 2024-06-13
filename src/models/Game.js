@@ -9,7 +9,8 @@ const Game = sequelize.define('game', {
     },
     adminUserID: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        // unique: true // se pone, si se decide eliminar los juegos una vez acabados
     },
     started: {
         type: DataTypes.BOOLEAN,
