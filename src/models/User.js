@@ -24,11 +24,11 @@ const User = sequelize.define('user', {
         defaultValue: 0
         // allowNull: false
     },
-    isPlaying: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
-        // allowNull: false
-    },
+    // isPlaying: {
+    //     type: DataTypes.BOOLEAN, // PENDIENTE: eliminar?
+    //     defaultValue: false
+    //     // allowNull: false
+    // },
     // gameId
 });
 

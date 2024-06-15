@@ -11,7 +11,7 @@ const create = catchError(async(req, res) => {
     const { name, max_players } = req.body
     const admin = req.user
     console.log(admin)
-    if (admin.isPlaying) return (res.status(404).json({message: "el usuario ya está en un juego, no puede participar en otro! :/"}))
+    if (admin.gameId) return (res.status(404).json({message: "el usuario ya está en un juego, no puede participar en otro! :/"}))
     
     const newGame = await Game.create({
         name,
@@ -29,16 +29,32 @@ const create = catchError(async(req, res) => {
 
 const getOne = catchError(async(req, res) => {
     const { id } = req.params;
-    const result = await Game.findByPk(id);
+    const result = await Game.findByPk(id, { include: [ User ] });
     if(!result) return res.sendStatus(404);
     return res.json(result);
 });
 
-const remove = catchError(async(req, res) => {
+const remove = catchError(async (req, res) => {
     const { id } = req.params;
-    await Game.destroy({ where: {id} });
+    const gameToDelete = await Game.findByPk(id, { include: [User] });
+
+    if (!gameToDelete) {
+        return res.status(404).send('Juego no encontrado');
+    }
+
+    // settear los atributos de usuarios cuando se elimine juego
+    const updateUsersPromises = gameToDelete.users.map(async (user) => {
+        user.gameId = null;
+        await user.save();  // Guardar los cambios en cada usuario
+    });
+
+    await Promise.all(updateUsersPromises);  // Esperar a que todos los cambios se guarden
+
+    await Game.destroy({ where: { id } });
+
     return res.sendStatus(204);
 });
+
 
 const update = catchError(async(req, res) => {
     const { id } = req.params;
