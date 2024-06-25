@@ -1,9 +1,16 @@
 const catchError = require('../utils/catchError');
 const Game = require('../models/Game');
 const User = require('../models/User');
+const Card = require('../models/Card');
+const Deck = require('../models/Deck');
 
 const getAll = catchError(async(req, res) => {
-    const results = await Game.findAll({ include: [User]});
+    const results = await Game.findAll({ include: [User, Deck]});
+    // eliminar juegos sin usuarios de la bd
+    results.map(async game => game.users.length === 0
+        ? await Game.destroy({ where: {id: game.id} })
+        : game
+    )
     return res.json(results);
 });
 
@@ -21,8 +28,24 @@ const create = catchError(async(req, res) => {
 
     await newGame.setUsers([admin.id])
 
-    // admin.gameId = newGame.id;
-    // await admin.save(); // Guarda los cambios en la base de datos
+    // creamos el deck del juego
+    const newGameDeck = await Deck.create({
+        gameId: newGame.id
+    })
+
+    // creamos las cartas del juego
+    const ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'j', 'q', 'k', 'a']
+    const suits = ['corazón', 'picas', 'trebol', 'diamante']
+    for (let i = 0; i < 4; i++) {
+        for (let y = 0; y < 13; y++) {
+            console.log(`${ranks[y]} de ${suits[i]}`)
+            await Card.create({
+                rank: ranks[y],
+                suit: suits[i],
+                deckId: newGameDeck.id
+            })
+        }
+    }
     
     return res.status(201).json(newGame);
 });

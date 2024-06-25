@@ -13,7 +13,7 @@ gameRouter.route('/games/:id/users')
 
 gameRouter.route('/games/:id')
     .get(getOne)
-    .delete(remove)
-    .put(update);
+    .delete(verifyJWT, remove)
+    .put(verifyJWT, update);
 
 module.exports = gameRouter;
