@@ -1,8 +1,9 @@
 const catchError = require('../utils/catchError');
 const Deck = require('../models/Deck');
+const Card = require('../models/Card');
 
 const getAll = catchError(async(req, res) => {
-    const results = await Deck.findAll();
+    const results = await Deck.findAll( {include: [Card]} );
     return res.json(results);
 });
 

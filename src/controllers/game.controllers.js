@@ -5,7 +5,10 @@ const Card = require('../models/Card');
 const Deck = require('../models/Deck');
 
 const getAll = catchError(async(req, res) => {
-    const results = await Game.findAll({ include: [User, Deck]});
+    const results = await Game.findAll({ 
+        include: [{model: Deck,
+            include: [Card]
+        }, User]});
     // eliminar juegos sin usuarios de la bd
     results.map(async game => game.users.length === 0
         ? await Game.destroy({ where: {id: game.id} })
@@ -83,7 +86,17 @@ const update = catchError(async(req, res) => {
     const { id } = req.params;
     const result = await Game.update(
         req.body,
-        { where: {id}, returning: true }
+        { 
+            where: { id }, 
+            returning: true,
+            include: [
+                { 
+                    model: Deck,
+                    include: [Card]
+                }, 
+                User
+            ] 
+        }
     );
     if(result[0] === 0) return res.sendStatus(404);
     return res.json(result[1][0]);

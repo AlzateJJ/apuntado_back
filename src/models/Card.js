@@ -7,15 +7,23 @@ const Card = sequelize.define('card', {
         allowNull: false
     },
     rank: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     isAvailable: {
         type: DataTypes.BOOLEAN,
-        allowNull: false
+        defaultValue: true,
+        // allowNull: false
     },
     // owner_id
     // deck_id
 });
+
+// User.prototype.toJSON = function () {
+//     const values = Object.assign({}, this.get());
+//     delete values.createdAt;
+//     delete values.updatedAt;
+//     return values;
+// }
 
 module.exports = Card;
