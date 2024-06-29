@@ -1,4 +1,4 @@
-const { getAll, create, getOne, remove, update, setGameUsers } = require('../controllers/game.controllers');
+const { getAll, create, getOne, remove, update, setGameUsers, serveCards } = require('../controllers/game.controllers');
 const express = require('express');
 const verifyJWT = require('../utils/verifyJWT')
 
@@ -7,6 +7,9 @@ const gameRouter = express.Router();
 gameRouter.route('/games')
     .get(getAll)
     .post(verifyJWT, create);
+
+gameRouter.route('/games/serve/:id')
+    .post(verifyJWT, serveCards)
 
 gameRouter.route('/games/:id/users')
     .post(setGameUsers)

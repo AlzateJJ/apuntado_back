@@ -28,6 +28,10 @@ const Game = sequelize.define('game', {
     max_players: {
         type: INTEGER,
         allowNull: false
+    },
+    turnlayerID: {
+        type: DataTypes.INTEGER,
+        defaultValue: null
     }
 });
 

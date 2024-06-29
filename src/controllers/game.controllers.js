@@ -105,12 +105,56 @@ const update = catchError(async(req, res) => {
 const setGameUsers = catchError(async(req, res) => {
     const { id } = req.params
     const game = await Game.findByPk(id)
-    if (!game) return (res.status(404).json({message: "not found game!! :(("}))
+    if (!game) return (res.status(404).json({message: "juego no encontrado :(("}))
     
     await game.setUsers(req.body)
 
     const users = await game.getUsers()
     return res.status(200).json(users)
+})
+
+const serveCards = catchError(async(req, res) => {
+    const admin = req.user // se le dan 11 al admin siempre por defecto
+    const { id } = req.params
+    const game = await Game.findByPk(id, {
+        include: [{model: Deck,
+            include: [Card]
+        }, User]});
+    if (!game) return (res.status(404).json({message: "juego no encontrado :(("}))
+
+    const gamePlayers = game.users
+    console.log('game:')
+    console.log(game)
+    console.log(gamePlayers)
+    const cartasTomadas = new Set() // conjunto para tener la info de las cartas no disponibles
+
+    for (const player of gamePlayers) {
+        let numCards = player.id == admin.id ? 11 : 10 // se define el num de cartas para a cada jugador
+        console.log(`numCards: ${numCards}`)
+        let playerCardsPromises = [] // arreglo de promesas, donde irán las cartas del jugador
+
+        while (playerCardsPromises.length < numCards) { // mientras el jugadir no alcance su num max de cartas
+            let aleatorio = Math.floor(Math.random()) * 53 // indice aleatorio para buscar carta en mazo
+            let card = game.deck.cards[aleatorio] // se escoge la carta aleatoria del mazo
+
+            if (!cartasTomadas.has(card.userId)) { // si la carta está disponible
+                cartasTomadas.add(card.id) // se agrega al arreglo
+                card.isAvailable = false // se pone como false el attr isAvailable de la carta
+                card.userId = player.id // se actualiza el attr userId de la carta, con el userId del player
+                await card.save() // se guardan los cambios
+                playerCardsPromises.push(card) // se agrega la carta al arreglo de promesas
+            }
+        }
+        await Promise.all(playerCardsPromises)
+    }
+
+    // vuelvo a consultar el mismo juego, pero ya modificado, para retornarlo
+    const gameReady = await Game.findByPk(id, {
+        include: [{model: Deck,
+            include: [Card]
+        }, User]});
+
+    return res.status(200).json(gameReady)
 })
 
 module.exports = {
@@ -119,5 +163,6 @@ module.exports = {
     getOne,
     remove,
     update,
-    setGameUsers
+    setGameUsers,
+    serveCards
 }

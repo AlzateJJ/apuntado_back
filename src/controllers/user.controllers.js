@@ -2,9 +2,10 @@ const catchError = require('../utils/catchError');
 const User = require('../models/User');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
+const Card = require('../models/Card');
 
 const getAll = catchError(async(req, res) => {
-    const results = await User.findAll();
+    const results = await User.findAll({ include: [Card]});
     return res.json(results);
 });
 
