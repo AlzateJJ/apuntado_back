@@ -17,10 +17,10 @@ const getAll = catchError(async(req, res) => {
     return res.json(results);
 });
 
-const create = catchError(async(req, res) => {
+const create = catchError(async(req, res) => { // PENDIENTE: está retornando el juego sin los include
     const { name, max_players } = req.body
     const admin = req.user
-    console.log(admin)
+    // console.log(admin)
     if (admin.gameId) return (res.status(404).json({message: "el usuario ya está en un juego, no puede participar en otro! :/"}))
     
     const newGame = await Game.create({
@@ -42,15 +42,22 @@ const create = catchError(async(req, res) => {
     for (let i = 0; i < 4; i++) {
         for (let y = 0; y < 13; y++) {
             console.log(`${ranks[y]} de ${suits[i]}`)
-            await Card.create({
-                rank: ranks[y],
-                suit: suits[i],
-                deckId: newGameDeck.id
-            })
+            for (let z = 0; z < 2; z++) {
+                await Card.create({
+                    rank: ranks[y],
+                    suit: suits[i],
+                    deckId: newGameDeck.id
+                })
+            }
         }
     }
+
+    const newUpdatedGame = await Game.findByPk(newGame.id, {
+        include: [{model: Deck,
+            include: [Card]
+        }, User]})
     
-    return res.status(201).json(newGame);
+    return res.status(201).json(newUpdatedGame);
 });
 
 const getOne = catchError(async(req, res) => {
@@ -62,7 +69,11 @@ const getOne = catchError(async(req, res) => {
 
 const remove = catchError(async (req, res) => {
     const { id } = req.params;
-    const gameToDelete = await Game.findByPk(id, { include: [User] });
+    const gameToDelete = await Game.findByPk(id, { 
+        include: [{model: User,
+            include: [Card]
+        }] 
+    });
 
     if (!gameToDelete) {
         return res.status(404).send('Juego no encontrado');
@@ -71,6 +82,7 @@ const remove = catchError(async (req, res) => {
     // settear los atributos de usuarios cuando se elimine juego
     const updateUsersPromises = gameToDelete.users.map(async (user) => {
         user.gameId = null;
+        user.cards = []
         await user.save();  // Guardar los cambios en cada usuario
     });
 
@@ -119,7 +131,10 @@ const serveCards = catchError(async(req, res) => {
     const game = await Game.findByPk(id, {
         include: [{model: Deck,
             include: [Card]
-        }, User]});
+        }, User],
+        // raw: true,
+        // nest: true
+    });
     if (!game) return (res.status(404).json({message: "juego no encontrado :(("}))
 
     const gamePlayers = game.users
@@ -134,10 +149,11 @@ const serveCards = catchError(async(req, res) => {
         let playerCardsPromises = [] // arreglo de promesas, donde irán las cartas del jugador
 
         while (playerCardsPromises.length < numCards) { // mientras el jugadir no alcance su num max de cartas
-            let aleatorio = Math.floor(Math.random()) * 53 // indice aleatorio para buscar carta en mazo
+            let aleatorio = Math.floor(Math.random() * 105) // indice aleatorio para buscar carta en mazo
+            console.log(aleatorio)
             let card = game.deck.cards[aleatorio] // se escoge la carta aleatoria del mazo
-
-            if (!cartasTomadas.has(card.userId)) { // si la carta está disponible
+            console.log(card)
+            if (!cartasTomadas.has(card.id)) { // si la carta está disponible
                 cartasTomadas.add(card.id) // se agrega al arreglo
                 card.isAvailable = false // se pone como false el attr isAvailable de la carta
                 card.userId = player.id // se actualiza el attr userId de la carta, con el userId del player

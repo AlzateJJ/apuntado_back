@@ -37,9 +37,11 @@ const remove = catchError(async(req, res) => {
 const update = catchError(async(req, res) => {
     const { id } = req.params;
     const result = await User.update(
-        req.body,
-        { where: {id}, returning: true }
-    );
+        req.body, { 
+        where: {id},
+        returning: true,
+        include: [Card]
+    });
     if(result[0] === 0) return res.sendStatus(404);
     return res.json(result[1][0]);
 });
@@ -61,8 +63,22 @@ const login = catchError(async(req, res) => {
 })
 
 const findMe = catchError(async(req, res) => {
-    const user = req.user
-    return res.json(user)
+    const { id } = req.user
+    const myUser = await User.findByPk(id, {include: [Card]})
+    return res.json(myUser).status(200)
+})
+
+const setUserCards = catchError(async(req, res) => {
+    const { id } = req.params
+    const user = await User.findByPk(id, { include: [Card]})
+
+    if (!user) return(res.status(401).json({message: "usuario no encontrado :("}))
+    
+    await user.setCards(req.body)
+
+    const userCards = await user.getCards()
+
+    return res.status(204).json(userCards)
 })
 
 module.exports = {
@@ -72,5 +88,6 @@ module.exports = {
     remove,
     update,
     login,
-    findMe
+    findMe,
+    setUserCards
 }
