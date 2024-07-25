@@ -48,7 +48,7 @@ const update = catchError(async(req, res) => {
 
 const login = catchError(async(req, res) => {
     const { email, password } = req.body
-    const createdUser = await User.findOne( { where: { email : email } } )
+    const createdUser = await User.findOne( { where: { email : email }, include: [Card] } )
     if (!createdUser) return res.status(404).json({message: "no existe el usuario :("})
     const validPassword = await bcrypt.compare(password, createdUser.password)
     if (!validPassword) return res.status(404).json({ message: "contraseña inválida :/" })
@@ -64,7 +64,7 @@ const login = catchError(async(req, res) => {
 
 const findMe = catchError(async(req, res) => {
     const { id } = req.user
-    const myUser = await User.findByPk(id, {include: [Card]})
+    const myUser = await User.findByPk(id, { include: [Card] })
     return res.json(myUser).status(200)
 })
 

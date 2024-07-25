@@ -37,7 +37,7 @@ const create = catchError(async(req, res) => { // PENDIENTE: está retornando el
     })
 
     // creamos las cartas del juego
-    const ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'j', 'q', 'k', 'a']
+    const ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
     const suits = ['corazón', 'picas', 'trebol', 'diamante']
     for (let i = 0; i < 4; i++) {
         for (let y = 0; y < 13; y++) {
@@ -70,7 +70,8 @@ const getOne = catchError(async(req, res) => {
 const remove = catchError(async (req, res) => {
     const { id } = req.params;
     const gameToDelete = await Game.findByPk(id, { 
-        include: [{model: User,
+        include: [{
+            model: User,
             include: [Card]
         }] 
     });
@@ -80,9 +81,9 @@ const remove = catchError(async (req, res) => {
     }
 
     // settear los atributos de usuarios cuando se elimine juego
-    const updateUsersPromises = gameToDelete.users.map(async (user) => {
+    const updateUsersPromises = gameToDelete.users.map(async (user) => { // PENDIENTE: eliminar cartas de usuarios
         user.gameId = null;
-        user.cards = []
+        await Card.destroy({ where: { userId: user.id } }); // Eliminar las cartas del usuario
         await user.save();  // Guardar los cambios en cada usuario
     });
 
@@ -138,21 +139,20 @@ const serveCards = catchError(async(req, res) => {
     if (!game) return (res.status(404).json({message: "juego no encontrado :(("}))
 
     const gamePlayers = game.users
-    console.log('game:')
-    console.log(game)
-    console.log(gamePlayers)
+    const firstPlayer = gamePlayers[0] // Se le dan 11 al primero de la lista users, no al admin (mayor facilidad para manejar turnos)
+    
+    game.turnplayerID = firstPlayer.id;
+    await game.save();
+
     const cartasTomadas = new Set() // conjunto para tener la info de las cartas no disponibles
 
     for (const player of gamePlayers) {
-        let numCards = player.id == admin.id ? 11 : 10 // se define el num de cartas para a cada jugador
-        console.log(`numCards: ${numCards}`)
+        let numCards = player.id == firstPlayer.id ? 11 : 10 // se define el num de cartas para a cada jugador
         let playerCardsPromises = [] // arreglo de promesas, donde irán las cartas del jugador
 
         while (playerCardsPromises.length < numCards) { // mientras el jugadir no alcance su num max de cartas
             let aleatorio = Math.floor(Math.random() * 105) // indice aleatorio para buscar carta en mazo
-            console.log(aleatorio)
             let card = game.deck.cards[aleatorio] // se escoge la carta aleatoria del mazo
-            console.log(card)
             if (!cartasTomadas.has(card.id)) { // si la carta está disponible
                 cartasTomadas.add(card.id) // se agrega al arreglo
                 card.isAvailable = false // se pone como false el attr isAvailable de la carta

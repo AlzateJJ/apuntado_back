@@ -29,9 +29,16 @@ const Game = sequelize.define('game', {
         type: INTEGER,
         allowNull: false
     },
-    turnlayerID: {
+    turnplayerID: {
         type: DataTypes.INTEGER,
         defaultValue: null
+    },
+    discarded_card: {
+        type: DataTypes.JSON,
+        defaultValue: {
+            playerId: null,
+            card: {}
+        }
     }
 });
 

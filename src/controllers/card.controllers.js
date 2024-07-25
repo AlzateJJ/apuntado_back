@@ -24,6 +24,11 @@ const remove = catchError(async(req, res) => {
     return res.sendStatus(204);
 });
 
+const removeAll = catchError(async(req, res) => { // para borrar todas las cartas (necesario temporalmente)
+    await Card.destroy({ where: {} });
+    return res.status(204).json({message: 'se borraron todos los registos del modelo Cards'});
+});
+
 const update = catchError(async(req, res) => {
     const { id } = req.params;
     const result = await Card.update(
@@ -39,5 +44,6 @@ module.exports = {
     create,
     getOne,
     remove,
-    update
+    update,
+    removeAll
 }
