@@ -10,11 +10,18 @@ const Card = sequelize.define('card', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    isAvailable: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
+    state: {
+        type: DataTypes.SMALLINT,
+        defaultValue: 1,
         // allowNull: false
     },
+    // states de la carta:
+    // 1: en deck del juego
+    // 2: en mazo de algún jugador
+    // 3: como carta tirada
+    // 4: como carta ya descartada (tirada y no elegida)
+
+
     // owner_id
     // deck_id
 });

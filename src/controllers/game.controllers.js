@@ -127,7 +127,7 @@ const setGameUsers = catchError(async(req, res) => {
 })
 
 const serveCards = catchError(async(req, res) => {
-    const admin = req.user // se le dan 11 al admin siempre por defecto
+    // const admin = req.user // se le dan 11 al admin siempre por defecto
     const { id } = req.params
     const game = await Game.findByPk(id, {
         include: [{model: Deck,
@@ -155,7 +155,7 @@ const serveCards = catchError(async(req, res) => {
             let card = game.deck.cards[aleatorio] // se escoge la carta aleatoria del mazo
             if (!cartasTomadas.has(card.id)) { // si la carta está disponible
                 cartasTomadas.add(card.id) // se agrega al arreglo
-                card.isAvailable = false // se pone como false el attr isAvailable de la carta
+                card.state = 2 // se pone como 2 (en mazo) el attr state de la carta
                 card.userId = player.id // se actualiza el attr userId de la carta, con el userId del player
                 await card.save() // se guardan los cambios
                 playerCardsPromises.push(card) // se agrega la carta al arreglo de promesas

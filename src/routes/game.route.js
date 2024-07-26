@@ -8,8 +8,8 @@ gameRouter.route('/games')
     .get(getAll)
     .post(verifyJWT, create);
 
-gameRouter.route('/games/serve/:id')
-    .post(verifyJWT, serveCards)
+gameRouter.route('/serve/games/:id')
+    .post(serveCards) // .post(verifyJWT, serveCards)
 
 gameRouter.route('/games/:id/users')
     .post(setGameUsers)
