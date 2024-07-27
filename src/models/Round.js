@@ -2,15 +2,11 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/connection');
 
 const Round = sequelize.define('round', {
-    state: {
+    finished: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: true
+        defaultValue: false
     },
-    // valores de state:
-    // 1. true -> empezó ( en juego)
-    // 2. false -> terminó
-    
     winner_id: {
         type: DataTypes.INTEGER,
         defaultValue: null

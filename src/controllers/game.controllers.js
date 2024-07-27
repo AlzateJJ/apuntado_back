@@ -18,54 +18,71 @@ const getAll = catchError(async(req, res) => {
     return res.json(results);
 });
 
-const create = catchError(async(req, res) => { // PENDIENTE: está retornando el juego sin los include
-    const { name, max_players } = req.body
-    const admin = req.user
-    // console.log(admin)
-    if (admin.gameId) return (res.status(404).json({message: "el usuario ya está en un juego, no puede participar en otro! :/"}))
-    
-    const newGame = await Game.create({
-        name,
-        max_players,
-        adminUserID: admin.id
-    });
+const create = catchError(async (req, res) => {
+    const { name, max_players } = req.body;
+    const admin = req.user;
 
-    await newGame.setUsers([admin.id])
+    if (admin.gameId) return res.status(404).json({ message: "El usuario ya está en un juego, no puede participar en otro! :/" });
 
-    // creamos el deck del juego
-    const newGameDeck = await Deck.create({
-        gameId: newGame.id
-    })
+    const sequelize = require('../utils/connection');
+    const transaction = await sequelize.transaction();
 
-    // creamos las cartas del juego
-    const ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
-    const suits = ['corazón', 'picas', 'trebol', 'diamante']
-    for (let i = 0; i < 4; i++) {
-        for (let y = 0; y < 13; y++) {
-            console.log(`${ranks[y]} de ${suits[i]}`)
-            for (let z = 0; z < 2; z++) {
-                await Card.create({
-                    rank: ranks[y],
-                    suit: suits[i],
-                    deckId: newGameDeck.id
-                })
+    try {
+        // Creación del juego
+        const newGame = await Game.create({
+            name,
+            max_players,
+            adminUserID: admin.id
+        }, { transaction });
+
+        await newGame.setUsers([admin.id], { transaction });
+
+        // Creación del deck del juego
+        const newGameDeck = await Deck.create({
+            gameId: newGame.id
+        }, { transaction });
+
+        // Creación de las cartas del deck
+        const ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
+        const suits = ['corazón', 'picas', 'trebol', 'diamante'];
+        for (let i = 0; i < 4; i++) {
+            for (let y = 0; y < 13; y++) {
+                for (let z = 0; z < 2; z++) {
+                    await Card.create({
+                        rank: ranks[y],
+                        suit: suits[i],
+                        deckId: newGameDeck.id
+                    }, { transaction });
+                }
             }
         }
+
+        // Creación del primer round del juego
+        await Round.create({
+            gameId: newGame.id
+        }, { transaction });
+
+        await transaction.commit();
+
+        // Consultar el juego actualizado con las asociaciones
+        const newUpdatedGame = await Game.findByPk(newGame.id, {
+            include: [
+                {
+                    model: Deck,
+                    include: [Card]
+                },
+                User,
+                Round
+            ]
+        });
+
+        return res.status(201).json(newUpdatedGame);
+    } catch (error) {
+        await transaction.rollback();
+        return res.status(500).json({ message: "Error al crear el juego", error });
     }
-
-    // creamos el primer round del juego
-    await Round.create({
-        state: true,
-        gameId: newGame.id 
-    })
-
-    const newUpdatedGame = await Game.findByPk(newGame.id, {
-        include: [{model: Deck,
-            include: [Card]
-        }, User, Round]})
-    
-    return res.status(201).json(newUpdatedGame);
 });
+
 
 const getOne = catchError(async(req, res) => {
     const { id } = req.params;
