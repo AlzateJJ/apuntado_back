@@ -1,8 +1,19 @@
 const catchError = require('../utils/catchError');
 const Card = require('../models/Card');
+const Game = require('../models/Game');
+const Deck = require('../models/Deck');
 
 const getAll = catchError(async(req, res) => {
     const results = await Card.findAll();
+    return res.json(results);
+});
+
+const getAllByDeck = catchError(async(req, res) => {
+    const { id } = req.params // id del juego
+    const game = await Game.findByPk(id, { include: [Deck]})
+    const results = await Card.findAll({
+        where: {deckId: game.deck.id}
+    });
     return res.json(results);
 });
 
@@ -45,5 +56,6 @@ module.exports = {
     getOne,
     remove,
     update,
-    removeAll
+    removeAll,
+    getAllByDeck
 }

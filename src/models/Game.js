@@ -17,11 +17,11 @@ const Game = sequelize.define('game', {
         allowNull: false,
         defaultValue: false
     },
-    num_rounds: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
-        // allowNull: false
-    },
+    // num_rounds: {
+    //     type: DataTypes.INTEGER,
+    //     defaultValue: 0
+    //     // allowNull: false
+    // },
     winner_id: {
         type: DataTypes.INTEGER,
     },

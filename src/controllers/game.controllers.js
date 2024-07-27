@@ -3,12 +3,13 @@ const Game = require('../models/Game');
 const User = require('../models/User');
 const Card = require('../models/Card');
 const Deck = require('../models/Deck');
+const Round = require('../models/Round');
 
 const getAll = catchError(async(req, res) => {
     const results = await Game.findAll({ 
         include: [{model: Deck,
             include: [Card]
-        }, User]});
+        }, User, Round]});
     // eliminar juegos sin usuarios de la bd
     results.map(async game => game.users.length === 0
         ? await Game.destroy({ where: {id: game.id} })
@@ -52,10 +53,16 @@ const create = catchError(async(req, res) => { // PENDIENTE: está retornando el
         }
     }
 
+    // creamos el primer round del juego
+    await Round.create({
+        state: true,
+        gameId: newGame.id 
+    })
+
     const newUpdatedGame = await Game.findByPk(newGame.id, {
         include: [{model: Deck,
             include: [Card]
-        }, User]})
+        }, User, Round]})
     
     return res.status(201).json(newUpdatedGame);
 });
@@ -126,52 +133,74 @@ const setGameUsers = catchError(async(req, res) => {
     return res.status(200).json(users)
 })
 
-const serveCards = catchError(async(req, res) => {
-    // const admin = req.user // se le dan 11 al admin siempre por defecto
-    const { id } = req.params
-    const game = await Game.findByPk(id, {
-        include: [{model: Deck,
-            include: [Card]
-        }, User],
-        // raw: true,
-        // nest: true
-    });
-    if (!game) return (res.status(404).json({message: "juego no encontrado :(("}))
-
-    const gamePlayers = game.users
-    const firstPlayer = gamePlayers[0] // Se le dan 11 al primero de la lista users, no al admin (mayor facilidad para manejar turnos)
+const serveCards = catchError(async (req, res) => {
+    const { id } = req.params;
     
+    // Fetch the game with related data
+    const game = await Game.findByPk(id, {
+        include: [
+            {
+                model: Deck,
+                include: [Card]
+            },
+            User
+        ],
+    });
+    
+    if (!game) {
+        return res.status(404).json({ message: "Juego no encontrado :((" });
+    }
+
+    const gamePlayers = game.users;
+    if (gamePlayers.length === 0) {
+        return res.status(400).json({ message: "No hay jugadores en el juego" });
+    }
+
+    const firstPlayer = gamePlayers[0];
     game.turnplayerID = firstPlayer.id;
     await game.save();
 
-    const cartasTomadas = new Set() // conjunto para tener la info de las cartas no disponibles
+    const takenCards = new Set();
 
+    // Function to get a random card
+    const getRandomCard = (deck) => {
+        const randomIndex = Math.floor(Math.random() * deck.cards.length);
+        return deck.cards[randomIndex];
+    };
+
+    // Distribute cards to players
     for (const player of gamePlayers) {
-        let numCards = player.id == firstPlayer.id ? 11 : 10 // se define el num de cartas para a cada jugador
-        let playerCardsPromises = [] // arreglo de promesas, donde irán las cartas del jugador
+        const numCards = player.id === firstPlayer.id ? 11 : 10;
+        const playerCardsPromises = [];
 
-        while (playerCardsPromises.length < numCards) { // mientras el jugadir no alcance su num max de cartas
-            let aleatorio = Math.floor(Math.random() * 105) // indice aleatorio para buscar carta en mazo
-            let card = game.deck.cards[aleatorio] // se escoge la carta aleatoria del mazo
-            if (!cartasTomadas.has(card.id)) { // si la carta está disponible
-                cartasTomadas.add(card.id) // se agrega al arreglo
-                card.state = 2 // se pone como 2 (en mazo) el attr state de la carta
-                card.userId = player.id // se actualiza el attr userId de la carta, con el userId del player
-                await card.save() // se guardan los cambios
-                playerCardsPromises.push(card) // se agrega la carta al arreglo de promesas
+        while (playerCardsPromises.length < numCards) {
+            const card = getRandomCard(game.deck);
+
+            if (!takenCards.has(card.id)) {
+                takenCards.add(card.id);
+                card.state = 2;
+                card.userId = player.id;
+                playerCardsPromises.push(card.save());
             }
         }
-        await Promise.all(playerCardsPromises)
+        
+        await Promise.all(playerCardsPromises);
     }
 
-    // vuelvo a consultar el mismo juego, pero ya modificado, para retornarlo
-    const gameReady = await Game.findByPk(id, {
-        include: [{model: Deck,
-            include: [Card]
-        }, User]});
+    // Fetch the updated game data
+    const updatedGame = await Game.findByPk(id, {
+        include: [
+            {
+                model: Deck,
+                include: [Card]
+            },
+            User
+        ],
+    });
 
-    return res.status(200).json(gameReady)
-})
+    return res.status(200).json(updatedGame);
+});
+
 
 module.exports = {
     getAll,
