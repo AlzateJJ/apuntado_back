@@ -152,7 +152,7 @@ const setGameUsers = catchError(async(req, res) => {
 
 const serveCards = catchError(async (req, res) => {
     const { id } = req.params;
-    
+    const userId = req.params.userId || null
     // Fetch the game with related data
     const game = await Game.findByPk(id, {
         include: [
@@ -173,9 +173,22 @@ const serveCards = catchError(async (req, res) => {
         return res.status(400).json({ message: "No hay jugadores en el juego" });
     }
 
-    const firstPlayer = gamePlayers[0];
+    const firstPlayer = (game.users.find(u => u.id === userId)) || gamePlayers[0];
+    // const firstPlayer = gamePlayers[0];
+
     game.turnplayerID = firstPlayer.id;
     await game.save();
+
+    const enableAllCards = (deck) => {
+        for (const card of deck) {
+            card.state = 1
+            card.userId = null
+            card.save()
+        }
+    }
+
+    // solo se hace reset a las cartas cuando se hace en una ronda diferente a la primera (PENDIENTE)
+    enableAllCards(game.deck.cards)
 
     const takenCards = new Set();
 

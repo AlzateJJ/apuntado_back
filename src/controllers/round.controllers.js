@@ -6,6 +6,12 @@ const getAll = catchError(async(req, res) => {
     return res.json(results);
 });
 
+const getAllByPk = catchError(async(req, res) => {
+    const { id } = req.params
+    const results = await Round.findAll( { where: {id} });
+    return res.json(results);
+});
+
 const create = catchError(async(req, res) => {
     const result = await Round.create(req.body);
     return res.status(201).json(result);
@@ -39,5 +45,6 @@ module.exports = {
     create,
     getOne,
     remove,
-    update
+    update,
+    getAllByPk
 }

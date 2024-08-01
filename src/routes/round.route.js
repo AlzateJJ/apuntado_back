@@ -1,4 +1,4 @@
-const { getAll, create, getOne, remove, update } = require('../controllers/round.controllers');
+const { getAll, create, getOne, remove, update, getAllByPk } = require('../controllers/round.controllers');
 const express = require('express');
 
 const roundRouter = express.Router();
