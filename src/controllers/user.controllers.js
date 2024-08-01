@@ -76,9 +76,10 @@ const setUserCards = catchError(async(req, res) => {
     
     await user.setCards(req.body)
 
-    const userCards = await user.getCards()
+    const myUser = await User.findByPk(id, { include: [Card] })
 
-    return res.status(204).json(userCards)
+    console.log(myUser)
+    return res.json(myUser).status(204)
 })
 
 module.exports = {

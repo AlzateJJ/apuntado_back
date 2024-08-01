@@ -43,7 +43,8 @@ const create = catchError(async (req, res) => {
         }, { transaction });
 
         // Creación de las cartas del deck
-        const ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
+        // const ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
+        const ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
         const suits = ['corazón', 'picas', 'trebol', 'diamante'];
         for (let i = 0; i < 4; i++) {
             for (let y = 0; y < 13; y++) {
