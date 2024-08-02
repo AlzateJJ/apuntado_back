@@ -4,6 +4,10 @@ const User = require('../models/User');
 const Card = require('../models/Card');
 const Deck = require('../models/Deck');
 const Round = require('../models/Round');
+const Dealer = require('../utils/Dealer')
+// const validarBajarse = require('../utils/Dealer')
+// const validarTocar = require('../utils/Dealer')
+// const comprobarManos = require('../utils/Dealer')
 
 const getAll = catchError(async(req, res) => {
     const results = await Game.findAll({ 
@@ -232,6 +236,26 @@ const serveCards = catchError(async (req, res) => {
     return res.status(200).json(updatedGame);
 });
 
+const validateBajarse = catchError(async(req, res) => {
+    const admin = req.user;
+    const winnerPlayer = await User.findByPk(admin.id, { include: [Card] })
+    console.log(winnerPlayer)
+    if (!Dealer.validarBajarse(winnerPlayer)) return res.status(400).json({message: "no te puedes bajar :("})
+
+    const game = await Game.findByPk(winnerPlayer.gameId, 
+        {
+            include: [{
+                model: User,
+                include: [Card]
+            }]
+        }
+    )
+
+    const otherUsers = game.users.filter(user => user.id != winnerPlayer.id)
+    const listaResultados = Dealer.comprobarManos(winnerPlayer, otherUsers)
+
+    return res.status(201).json(listaResultados)
+})
 
 module.exports = {
     getAll,
@@ -240,5 +264,6 @@ module.exports = {
     remove,
     update,
     setGameUsers,
-    serveCards
+    serveCards,
+    validateBajarse
 }
