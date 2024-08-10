@@ -252,9 +252,15 @@ const validateBajarse = catchError(async(req, res) => {
     )
 
     const otherUsers = game.users.filter(user => user.id != winnerPlayer.id)
-    const listaResultados = Dealer.comprobarManos(winnerPlayer, otherUsers)
-
-    return res.status(201).json(listaResultados)
+    const objetoResultados = Dealer.comprobarManos(winnerPlayer, otherUsers)
+    
+    const listaResultados = Object.keys(objetoResultados).forEach(playerId => {
+        const player = game.users.find(user => user.id === playerId)
+        player.points += +(objetoResultados[playerId])
+        player.save()
+    })
+    Promise.all(listaResultados)
+    return res.status(200).json(objetoResultados)
 })
 
 module.exports = {
@@ -265,5 +271,5 @@ module.exports = {
     update,
     setGameUsers,
     serveCards,
-    validateBajarse
+    validateBajarse,
 }
