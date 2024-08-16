@@ -37,13 +37,24 @@ const remove = catchError(async(req, res) => {
 const update = catchError(async(req, res) => {
     const { id } = req.params;
     const result = await User.update(
-        req.body, { 
+        req.body, {
         where: {id},
         returning: true,
         include: [Card]
     });
+    
+    // eliminar cartas del jugador cuando se saca del juego
+    if ((req.body).points == 0 && ((req.body).gameId == null)) {
+        console.log("entré al if")
+        const user = await User.findByPk(id)
+        await user.setCards([])
+
+        const myUser = await User.findByPk(id, { include: [Card] })
+        console.log(myUser)
+        return res.json(myUser).status(204)
+    }
     if(result[0] === 0) return res.sendStatus(404);
-    return res.json(result[1][0]);
+    return res.json(result[1][0]).status(204);
 });
 
 const login = catchError(async(req, res) => {
