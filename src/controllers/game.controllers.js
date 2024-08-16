@@ -237,12 +237,8 @@ const serveCards = catchError(async (req, res) => {
 });
 
 const validateBajarse = catchError(async(req, res) => {
-    const admin = req.user;
-    const winnerPlayer = await User.findByPk(admin.id, { include: [Card] })
-    console.log(winnerPlayer)
-    if (!Dealer.validarBajarse(winnerPlayer)) return res.status(400).json({message: "no te puedes bajar :("})
-
-    const game = await Game.findByPk(winnerPlayer.gameId, 
+    const { id } = req.params;
+    const game = await Game.findByPk(id, 
         {
             include: [{
                 model: User,
@@ -250,17 +246,23 @@ const validateBajarse = catchError(async(req, res) => {
             }]
         }
     )
+    const winnerPlayer = await User.findByPk(game.turnplayerID, { include: [Card] })
+    console.log(winnerPlayer)
+    if (!Dealer.validarBajarse(winnerPlayer)) return res.status(400).json({message: "no te puedes bajar :("})
 
     const otherUsers = game.users.filter(user => user.id != winnerPlayer.id)
     const objetoResultados = Dealer.comprobarManos(winnerPlayer, otherUsers)
-    
-    const listaResultados = Object.keys(objetoResultados).forEach(playerId => {
-        const player = game.users.find(user => user.id === playerId)
-        player.points += +(objetoResultados[playerId])
+
+    const listaResultadosPromises = []
+    Object.keys(objetoResultados).map(async playerId => {
+        const player = await game.users.find(user => user.id == playerId)
+        player.points += objetoResultados[playerId]
         player.save()
+        listaResultadosPromises.push(player)
     })
-    Promise.all(listaResultados)
-    return res.status(200).json(objetoResultados)
+    Promise.all(listaResultadosPromises)
+
+    return res.status(200).json({ message: "Bajada exitosa :)" })
 })
 
 module.exports = {
