@@ -43,14 +43,13 @@ const update = catchError(async(req, res) => {
         include: [Card]
     });
     
-    // eliminar cartas del jugador cuando se saca del juego
+    // quitar cartas del jugador cuando se saca del juego
     if ((req.body).points == 0 && ((req.body).gameId == null)) {
         console.log("entré al if")
         const user = await User.findByPk(id)
         await user.setCards([])
 
-        const myUser = await User.findByPk(id, { include: [Card] })
-        console.log(myUser)
+        const myUser = await User.findByPk(id, { include: [Card] }) // PENDIENTE: eliminar cartas
         return res.json(myUser).status(204)
     }
     if(result[0] === 0) return res.sendStatus(404);
