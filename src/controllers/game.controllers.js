@@ -248,7 +248,7 @@ const validateBajarse = catchError(async(req, res) => {
     )
     const winnerPlayer = await User.findByPk(game.turnplayerID, { include: [Card] })
     console.log(winnerPlayer)
-    if (!Dealer.validarBajarse(winnerPlayer)) return res.status(400).json({message: "no te puedes bajar :("})
+    // if (!Dealer.validarBajarse(winnerPlayer)) return res.status(400).json({message: "no te puedes bajar :("})
 
     const otherUsers = game.users.filter(user => user.id != winnerPlayer.id)
     const objetoResultados = Dealer.comprobarManos(winnerPlayer, otherUsers)
