@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="697" viewBox="0 0 1100 697"><rect width="100%" height="100%" fill="white"/>
+<polyline points="315,77.89999999999999 360,77.89999999999999 405,77.89999999999999" fill="none" stroke="#183044" stroke-width="1.5"/>
+<text x="323" y="69.7" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">1</text>
+<text x="370" y="69.7" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">0..*</text>
+<text x="321" y="53.3" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">configura / usa</text>
+<polyline points="555,141.85999999999999 555,200.89999999999998 555,262.4" fill="none" stroke="#183044" stroke-width="1.5"/>
+<text x="563" y="161.54" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">1</text>
+<text x="563" y="250.92" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">0..*</text>
+<text x="420" y="237.79999999999998" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">incluye / pertenece</text>
+<polyline points="945,90.19999999999999 945,196.79999999999998 650,196.79999999999998 650,262.4" fill="none" stroke="#183044" stroke-width="1.5"/>
+<text x="953" y="109.88" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">1</text>
+<text x="658" y="250.92" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">0..*</text>
+<text x="790" y="184.5" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">inscrito / corresponde</text>
+<polyline points="405,110.69999999999999 355,110.69999999999999 355,217.29999999999998 165,217.29999999999998 165,262.4" fill="none" stroke="#183044" stroke-width="1.5"/>
+<text x="370" y="102.5" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">1</text>
+<text x="173" y="250.92" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">0..*</text>
+<text x="32" y="206.64" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">contiene / pertenece</text>
+<polyline points="705,82.0 755,82.0 755,229.6 945,229.6 945,262.4" fill="none" stroke="#183044" stroke-width="1.5"/>
+<text x="713" y="73.8" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">1</text>
+<text x="953" y="250.92" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">0..*</text>
+<text x="820" y="220.57999999999998" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">dispone / pertenece</text>
+<polyline points="405,315.7 360,315.7 315,315.7" fill="none" stroke="#183044" stroke-width="1.5"/>
+<text x="370" y="307.5" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">1</text>
+<text x="323" y="307.5" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">0..*</text>
+<text x="330" y="291.09999999999997" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">turno</text>
+<polyline points="165,387.85999999999996 165,553.5 390,553.5" fill="none" stroke="#183044" stroke-width="1.5"/>
+<text x="173" y="407.53999999999996" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">1</text>
+<text x="355" y="545.3" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">0..*</text>
+<text x="180" y="542.02" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">ubica / pertenece</text>
+<polyline points="555,353.41999999999996 555,418.2 555,483.79999999999995" fill="none" stroke="#183044" stroke-width="1.5"/>
+<text x="563" y="373.09999999999997" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">0..1</text>
+<text x="563" y="472.32" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">0..*</text>
+<text x="566" y="426.4" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">posee / en mano de</text>
+<polyline points="805,336.2 760,336.2 760,553.5 720,553.5" fill="none" stroke="#183044" stroke-width="1.5"/>
+<text x="770" y="328.0" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">1</text>
+<text x="728" y="545.3" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">0..*</text>
+<text x="772" y="447.71999999999997" text-anchor="start" font-family="Calibri,Arial" font-size="12" font-weight="400" fill="#183044">ocupa / representa</text>
+<rect x="15" y="16.4" width="300" height="142.67999999999998" rx="0" fill="#ffffff" stroke="#183044" stroke-width="1.5"/>
+<text x="165.0" y="35.26" text-anchor="middle" font-family="Calibri,Arial" font-size="17" font-weight="700" fill="#183044">rule_profile</text>
+<polyline points="15,44.279999999999994 315,44.279999999999994" fill="none" stroke="#183044" stroke-width="1.5"/>
+<text x="27" y="63.13999999999999" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ profile_id: text {PK}</text>
+<text x="27" y="80.36" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ mode: text</text>
+<text x="27" y="97.58" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ version: integer</text>
+<text x="27" y="114.8" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ deck_count: smallint</text>
+<text x="27" y="132.01999999999998" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ hand_size: smallint</text>
+<text x="27" y="149.23999999999998" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ max_players: smallint</text>
+<rect x="405" y="16.4" width="300" height="125.46" rx="0" fill="#ffffff" stroke="#183044" stroke-width="1.5"/>
+<text x="555.0" y="35.26" text-anchor="middle" font-family="Calibri,Arial" font-size="17" font-weight="700" fill="#183044">game</text>
+<polyline points="405,44.279999999999994 705,44.279999999999994" fill="none" stroke="#183044" stroke-width="1.5"/>
+<text x="417" y="63.13999999999999" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ game_id: uuid {PK}</text>
+<text x="417" y="80.36" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ profile_id: text {FK}</text>
+<text x="417" y="97.58" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ status: text</text>
+<text x="417" y="114.8" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ version: integer</text>
+<text x="417" y="132.01999999999998" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ created_at: timestamptz</text>
+<rect x="805" y="16.4" width="280" height="73.8" rx="0" fill="#ffffff" stroke="#183044" stroke-width="1.5"/>
+<text x="945.0" y="35.26" text-anchor="middle" font-family="Calibri,Arial" font-size="17" font-weight="700" fill="#183044">player</text>
+<polyline points="805,44.279999999999994 1085,44.279999999999994" fill="none" stroke="#183044" stroke-width="1.5"/>
+<text x="817" y="63.13999999999999" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ player_id: uuid {PK}</text>
+<text x="817" y="80.36" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ display_name: varchar(60)</text>
+<rect x="15" y="262.4" width="300" height="125.46" rx="0" fill="#ffffff" stroke="#183044" stroke-width="1.5"/>
+<text x="165.0" y="281.26" text-anchor="middle" font-family="Calibri,Arial" font-size="17" font-weight="700" fill="#183044">round</text>
+<polyline points="15,290.28 315,290.28" fill="none" stroke="#183044" stroke-width="1.5"/>
+<text x="27" y="309.14" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ game_id: uuid {PK, FK}</text>
+<text x="27" y="326.35999999999996" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ round_no: integer {PK}</text>
+<text x="27" y="343.58" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ status: text</text>
+<text x="27" y="360.79999999999995" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ phase: text</text>
+<text x="27" y="378.02" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ turn_player_id: uuid {FK}</text>
+<rect x="405" y="262.4" width="300" height="91.02" rx="0" fill="#ffffff" stroke="#183044" stroke-width="1.5"/>
+<text x="555.0" y="281.26" text-anchor="middle" font-family="Calibri,Arial" font-size="17" font-weight="700" fill="#183044">participation</text>
+<polyline points="405,290.28 705,290.28" fill="none" stroke="#183044" stroke-width="1.5"/>
+<text x="417" y="309.14" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ game_id: uuid {PK, FK}</text>
+<text x="417" y="326.35999999999996" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ player_id: uuid {PK, FK}</text>
+<text x="417" y="343.58" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ seat: smallint</text>
+<rect x="805" y="262.4" width="280" height="125.46" rx="0" fill="#ffffff" stroke="#183044" stroke-width="1.5"/>
+<text x="945.0" y="281.26" text-anchor="middle" font-family="Calibri,Arial" font-size="17" font-weight="700" fill="#183044">card_copy</text>
+<polyline points="805,290.28 1085,290.28" fill="none" stroke="#183044" stroke-width="1.5"/>
+<text x="817" y="309.14" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ game_id: uuid {PK, FK}</text>
+<text x="817" y="326.35999999999996" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ card_no: smallint {PK}</text>
+<text x="817" y="343.58" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ deck: smallint</text>
+<text x="817" y="360.79999999999995" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ suit: char(1)</text>
+<text x="817" y="378.02" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ rank: smallint</text>
+<rect x="390" y="483.79999999999995" width="330" height="142.67999999999998" rx="0" fill="#ffffff" stroke="#183044" stroke-width="1.5"/>
+<text x="555.0" y="502.65999999999997" text-anchor="middle" font-family="Calibri,Arial" font-size="17" font-weight="700" fill="#183044">card_position</text>
+<polyline points="390,511.67999999999995 720,511.67999999999995" fill="none" stroke="#183044" stroke-width="1.5"/>
+<text x="402" y="530.54" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ game_id: uuid {PK, FK}</text>
+<text x="402" y="547.76" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ round_no: integer {PK, FK}</text>
+<text x="402" y="564.98" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ card_no: smallint {PK, FK}</text>
+<text x="402" y="582.1999999999999" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ zone: text</text>
+<text x="402" y="599.42" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ owner_id: uuid [0..1] {FK}</text>
+<text x="402" y="616.64" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">+ ordinal: smallint</text>
+<text x="18" y="664.1999999999999" text-anchor="start" font-family="Calibri,Arial" font-size="14" font-weight="400" fill="#183044">Cada clase corresponde a una tabla homónima. Tipos SQL explícitos; asociaciones por PK/FK compuestas.</text>
+</svg>

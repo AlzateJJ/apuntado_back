@@ -64,6 +64,8 @@ test('reintento concurrente produce un acta y un evento',async()=>{
   const [a,b]=await Promise.all([service.execute('game-1','ana',command),service.execute('game-1','ana',command)]);
   assert.deepEqual(a,b); assert.equal(store.operationCount(),1); assert.equal((await store.pending()).length,1);
   assert.deepEqual(a,JSON.parse(JSON.stringify(a)),'La respuesta sobrevive al round-trip JSON sin -0');
+  assert.equal(store.state.phase,'closed');
+  for (const change of a.changes) assert.equal(store.state.players.find(p=>p.id===change.playerId)?.score,change.after);
 });
 test('dos cierres distintos: solo uno se confirma',async()=>{
   const store=new MemoryStore(state()); const service=new CloseRound(store,catalog);
@@ -102,4 +104,5 @@ test('tercera estrategia de prueba se registra sin modificar CloseRound',async()
   const service=new CloseRound(new MemoryStore(state('test-extension')),new VariantCatalog([variant]));
   assert.equal((await service.execute('game-1','ana',command)).winnerId,'ana');
   assert.throws(()=>catalog.get('apuntado',99),/UNKNOWN_RULES/);
+  assert.throws(()=>new VariantCatalog([variant,variant]),/DUPLICATE_VARIANT/);
 });

@@ -14,6 +14,12 @@ CREATE TABLE game (
   status text NOT NULL CHECK (status IN ('waiting','active','finished')),
   version integer NOT NULL DEFAULT 0 CHECK (version >= 0), created_at timestamptz NOT NULL DEFAULT now()
 );
+CREATE FUNCTION freeze_game_profile() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  IF NEW.profile_id <> OLD.profile_id THEN RAISE EXCEPTION 'El perfil de la partida es inmutable'; END IF;
+  RETURN NEW;
+END $$;
+CREATE TRIGGER immutable_game_profile BEFORE UPDATE ON game FOR EACH ROW EXECUTE FUNCTION freeze_game_profile();
 CREATE TABLE participation (
   game_id uuid NOT NULL REFERENCES game, player_id uuid NOT NULL REFERENCES player,
   seat smallint NOT NULL CHECK (seat BETWEEN 1 AND 6),

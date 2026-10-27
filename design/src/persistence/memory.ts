@@ -22,7 +22,8 @@ export class MemoryStore implements RoundStore, EventStore {
       operation: async id => operations.get(id),
       save: async (id, op, event) => {
         operations.set(id, structuredClone(op)); events.set(event.id, event);
-        tx.state = { ...snapshot, status: 'closed', version: op.result.version };
+        tx.state = { ...snapshot, status: 'closed', phase: 'closed', version: op.result.version,
+          players: snapshot.players.map(p => ({ ...p, score: op.result.changes.find(c => c.playerId === p.id)?.after ?? p.score })) };
       }
     };
     const result = await action(tx);

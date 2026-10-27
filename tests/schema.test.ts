@@ -10,6 +10,7 @@ test('SQL: DDL ejecutable, unicidad, FK, perfil inmutable, acumulación y rollba
     await db.exec(readFileSync('database/schema.sql','utf8'));
     await db.query('INSERT INTO player VALUES ($1,$2)',[player,'Ana']);
     await db.query("INSERT INTO game(game_id,profile_id,status) VALUES ($1,'apuntado-v1','active')",[game]);
+    await assert.rejects(()=>db.query("UPDATE game SET profile_id='classic-v1' WHERE game_id=$1",[game]));
     await db.query('INSERT INTO participation VALUES ($1,$2,1)',[game,player]);
     await db.query("INSERT INTO round VALUES ($1,1,'open','decision',$2)",[game,player]);
     await assert.rejects(()=>db.query("INSERT INTO round VALUES ($1,2,'open','decision',$2)",[game,player]));

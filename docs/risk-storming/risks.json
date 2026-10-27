@@ -1,0 +1,101 @@
+[
+  {
+    "id": "R1",
+    "risk": "Doble liquidación por reintento o cierres simultáneos",
+    "p": 3,
+    "i": 3,
+    "why": "Hay varios clientes y los reintentos son esperables; repetir un descuento altera el ganador.",
+    "mitigation": "Bloqueo por partida, versión esperada, PK del acta y clave de operación con fingerprint.",
+    "check": "Pruebas de aplicación y PostgreSQL entre conexiones.",
+    "rp": 1,
+    "ri": 3
+  },
+  {
+    "id": "R2",
+    "risk": "Exposición de manos privadas",
+    "p": 2,
+    "i": 3,
+    "why": "Una difusión común puede incluir datos de otro jugador; compromete la equidad de toda la ronda.",
+    "mitigation": "Proyección por destinatario, autorización de sala y outbox sin cartas.",
+    "check": "Prueba de vista privada; integrar prueba de dos sesiones WebSocket.",
+    "rp": 1,
+    "ri": 3
+  },
+  {
+    "id": "R3",
+    "risk": "Estado confirmado sin notificación recuperable",
+    "p": 2,
+    "i": 3,
+    "why": "El commit y el envío por red son acciones distintas; una caída intermedia desincroniza clientes.",
+    "mitigation": "Outbox transaccional, eventId estable, reintento y snapshot versionado al reconectar.",
+    "check": "Fallo de outbox revierte; fallo de publicador conserva evento.",
+    "rp": 1,
+    "ri": 3
+  },
+  {
+    "id": "R4",
+    "risk": "Reglas de una modalidad aplicadas a la otra",
+    "p": 2,
+    "i": 3,
+    "why": "Se comparten cartas y turno, pero el fin de partida y los puntos son distintos.",
+    "mitigation": "Variant inyectada por clave y versión; perfiles inmutables; pruebas por modalidad.",
+    "check": "Clásica vuelve a inicio; Apuntado liquida y continúa.",
+    "rp": 1,
+    "ri": 3
+  },
+  {
+    "id": "R5",
+    "risk": "Acoplamiento y ciclos entre módulos",
+    "p": 3,
+    "i": 2,
+    "why": "Un único proceso permite imports fáciles; la duplicación del motor encarece los cambios.",
+    "mitigation": "Contratos comunes, matriz de imports, raíz de composición y TSArch en cada cambio.",
+    "check": "FF-01 a FF-05 y controles negativos.",
+    "rp": 1,
+    "ri": 2
+  },
+  {
+    "id": "R6",
+    "risk": "Validadores demasiado complejos",
+    "p": 3,
+    "i": 2,
+    "why": "As, duplicados, patrones y toque introducen muchas ramas y casos límite.",
+    "mitigation": "Funciones puras pequeñas, particionador compartido y puerta CC máxima 10.",
+    "check": "FF-06, FF-08 y reporte real de complejidad.",
+    "rp": 1,
+    "ri": 2
+  },
+  {
+    "id": "R7",
+    "risk": "Comando de otro jugador o de versión obsoleta",
+    "p": 2,
+    "i": 3,
+    "why": "El cliente no es confiable y puede reenviar una acción después de perder su turno.",
+    "mitigation": "Identidad desde sesión; membresía, turno, fase y versión dentro de la unidad de trabajo.",
+    "check": "Rechazo de intruso, turno incorrecto y versión antigua.",
+    "rp": 1,
+    "ri": 3
+  },
+  {
+    "id": "R8",
+    "risk": "Evaluación lenta bajo carga",
+    "p": 2,
+    "i": 2,
+    "why": "Se exploran organizaciones de diez cartas; varias salas comparten CPU.",
+    "mitigation": "Dominio puro, tamaño acotado, medición p95 y revisión de CPU antes de escalar.",
+    "check": "Ensayo de carga multijugador pendiente; meta de E1.",
+    "rp": 2,
+    "ri": 2
+  },
+  {
+    "id": "R9",
+    "risk": "Puntos ciegos por revisión individual",
+    "p": 3,
+    "i": 2,
+    "why": "No existe contraste con perspectivas de otros miembros; pueden omitirse escenarios.",
+    "mitigation": "Recorrer cada frontera de confianza, operación y variante; repetir revisión con resultados de pruebas.",
+    "check": "Registro individual trazable y lista de supuestos pendientes.",
+    "rp": 2,
+    "ri": 2
+  }
+]

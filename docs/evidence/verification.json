@@ -5,37 +5,37 @@
     {
       "name": "TypeScript",
       "exitCode": 0,
-      "durationMs": 1334,
+      "durationMs": 1312,
       "output": ""
     },
     {
       "name": "Dominio y aplicación",
       "exitCode": 0,
-      "durationMs": 590,
-      "output": "✔ A vale 10; escaleras A23 y QKA válidas, KA2 inválida (1.434ms)\n✔ duplicados entre mazos válidos; misma carta física no se reutiliza (0.6564ms)\n✔ 4-3-3 y 5-5 independientes del orden visual (2.8486ms)\n✔ toque inclusivo de cinco y frontera de autoeliminación (3.0813ms)\n✔ toque 2+2 y 2+3; rechazo de 3+3 y de ocho pintas sin combinaciones (3.4603ms)\n✔ nueve pintas admiten toque; diez pintas dan +25 sin apilar +10 (5.3145ms)\n✔ Clásica termina en home sin movimientos de puntos (1.8739ms)\n✔ Apuntado conserva descuento aprobado y continúa con dos activos (2.0577ms)\n✔ +51 gana; único activo gana (4.062ms)\n✔ reintento concurrente produce un acta y un evento (2.3258ms)\n✔ dos cierres distintos: solo uno se confirma (1.4903ms)\n✔ rechaza identidad ajena, turno incorrecto, versión antigua y cambio de payload (2.1963ms)\n✔ fallo previo al commit revierte estado, operación y outbox (1.7103ms)\n✔ toque rechazado no revela manos ni cambia puntos (1.2307ms)\n✔ outbox permanece pendiente si falla envío; reintento conserva eventId (1.3477ms)\n✔ tercera estrategia de prueba se registra sin modificar CloseRound (0.2834ms)\nℹ tests 16\nℹ suites 0\nℹ pass 16\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 350.8921\n"
+      "durationMs": 543,
+      "output": "✔ A vale 10; escaleras A23 y QKA válidas, KA2 inválida (1.1668ms)\n✔ duplicados entre mazos válidos; misma carta física no se reutiliza (0.5424ms)\n✔ 4-3-3 y 5-5 independientes del orden visual (2.4988ms)\n✔ toque inclusivo de cinco y frontera de autoeliminación (1.7905ms)\n✔ toque 2+2 y 2+3; rechazo de 3+3 y de ocho pintas sin combinaciones (3.1081ms)\n✔ nueve pintas admiten toque; diez pintas dan +25 sin apilar +10 (4.611ms)\n✔ Clásica termina en home sin movimientos de puntos (1.9846ms)\n✔ Apuntado conserva descuento aprobado y continúa con dos activos (1.7696ms)\n✔ +51 gana; único activo gana (2.6989ms)\n✔ reintento concurrente produce un acta y un evento (2.8226ms)\n✔ dos cierres distintos: solo uno se confirma (2.634ms)\n✔ rechaza identidad ajena, turno incorrecto, versión antigua y cambio de payload (1.9166ms)\n✔ fallo previo al commit revierte estado, operación y outbox (1.2581ms)\n✔ toque rechazado no revela manos ni cambia puntos (0.9953ms)\n✔ outbox permanece pendiente si falla envío; reintento conserva eventId (1.3006ms)\n✔ tercera estrategia de prueba se registra sin modificar CloseRound (0.6613ms)\nℹ tests 16\nℹ suites 0\nℹ pass 16\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 333.8905\n"
     },
     {
       "name": "Fitness functions",
       "exitCode": 0,
-      "durationMs": 4143,
-      "output": "✔ FF-00 alcance no vacío: todos los módulos y ambos perfiles están presentes (1.3034ms)\n✔ FF-01 UI no accede a persistencia (850.3241ms)\n✔ FF-02 todas las dependencias de archivos están libres de ciclos (1.3688ms)\n✔ FF-03 las dos variantes no se importan entre sí (1.0708ms)\n✔ FF-04 matriz de dependencias internas permitidas (16.8794ms)\n✔ FF-05 dominio, reglas, aplicación y UI sin imports de pg, Sequelize o transporte de servidor (33.8673ms)\n✔ FF-06 todos los validadores y el coordinador tienen CC <= 10 (651.8309ms)\n✔ FF-07 controles negativos: se detectan UI->DB, ciclo y dependencia entre variantes (619.3575ms)\n✔ FF-08 control negativo: CC 11 produce error y CC 10 se admite (25.9666ms)\nℹ tests 9\nℹ suites 0\nℹ pass 9\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 3898.6827\n"
+      "durationMs": 3359,
+      "output": "✔ FF-00 alcance no vacío: todos los módulos y ambos perfiles están presentes (1.1572ms)\n✔ FF-01 UI no accede a persistencia (759.5302ms)\n✔ FF-02 todas las dependencias de archivos están libres de ciclos (1.2809ms)\n✔ FF-03 las dos variantes no se importan entre sí (1.1873ms)\n✔ FF-04 matriz de dependencias internas permitidas (10.7699ms)\n✔ FF-05 dominio, reglas, aplicación y UI sin imports de pg, Sequelize o transporte de servidor (41.7837ms)\n✔ FF-06 todos los validadores y el coordinador tienen CC <= 10 (671.1634ms)\n✔ FF-07 controles negativos: se detectan UI->DB, ciclo y dependencia entre variantes (468.4923ms)\n✔ FF-08 control negativo: CC 11 produce error y CC 10 se admite (20.3624ms)\nℹ tests 9\nℹ suites 0\nℹ pass 9\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 3169.9559\n"
     },
     {
       "name": "Esquema SQL",
       "exitCode": 0,
-      "durationMs": 2966,
-      "output": "✔ SQL: DDL ejecutable, unicidad, FK, perfil inmutable, acumulación y rollback (2269.9077ms)\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 2742.7077\n"
+      "durationMs": 2551,
+      "output": "✔ SQL: DDL ejecutable, unicidad, FK, perfil inmutable, acumulación y rollback (1914.6262ms)\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 2362.1372\n"
     },
     {
       "name": "Complejidad estática",
       "exitCode": 0,
-      "durationMs": 959,
+      "durationMs": 782,
       "output": ""
     },
     {
       "name": "Medición de complejidad",
       "exitCode": 0,
-      "durationMs": 1542,
+      "durationMs": 1326,
       "output": "Complejidad: 55 funciones; máximo 8; límite 10\n"
     }
   ]

@@ -5,7 +5,7 @@ export interface Card { readonly id: string; readonly deck: 1 | 2; readonly rank
 export interface Player { readonly id: string; readonly score: number; readonly hand: readonly Card[] }
 export interface RoundState {
   readonly gameId: string; readonly roundId: string; readonly mode: Mode; readonly rulesVersion: number;
-  readonly version: number; readonly status: 'open' | 'closed'; readonly phase: 'decision' | 'draw' | 'discard';
+  readonly version: number; readonly status: 'open' | 'closed'; readonly phase: 'decision' | 'draw' | 'discard' | 'closed';
   readonly turnPlayerId: string; readonly players: readonly Player[];
 }
 export interface CloseCommand { readonly roundId: string; readonly operationId: string; readonly expectedVersion: number; readonly closure: Closure }
