@@ -5,7 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/server",
-    "dev": "nodemon src/server"
+    "dev": "nodemon src/server",
+    "typecheck": "tsc -p tsconfig.architecture.json",
+    "test:domain": "tsx --test tests/domain.test.ts",
+    "test:architecture": "tsx --test tests/architecture/fitness.test.ts",
+    "test:schema": "tsx --test tests/schema.test.ts",
+    "lint:architecture": "eslint --config eslint.architecture.config.mjs design/src",
+    "metrics": "tsx scripts/complexity-report.ts",
+    "verify": "node scripts/verify.mjs",
+    "test:postgres": "tsx --test tests/postgres.test.ts"
   },
   "keywords": [],
   "author": "",
@@ -22,9 +30,20 @@
     "sequelize": "^6.29.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "@electric-sql/pglite": "0.5.12",
+    "@types/node": "24.19.2",
+    "@types/pg": "8.23.1",
+    "eslint": "10.13.0",
+    "nodemon": "^2.0.22",
+    "tsarch": "5.4.1",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.72.1"
   },
   "overrides": {
     "semver": "^7.5.3"
+  },
+  "engines": {
+    "node": ">=24 <25"
   }
 }

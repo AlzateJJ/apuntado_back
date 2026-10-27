@@ -1,0 +1,338 @@
+{
+  "node": "v24.19.0",
+  "threshold": 10,
+  "variant": "classic",
+  "maximum": 8,
+  "functions": [
+    {
+      "file": "design/src/domain/cards.ts",
+      "line": 2,
+      "complexity": 3,
+      "description": "Function 'points'"
+    },
+    {
+      "file": "design/src/domain/cards.ts",
+      "line": 3,
+      "complexity": 1,
+      "description": "Function 'total'"
+    },
+    {
+      "file": "design/src/domain/cards.ts",
+      "line": 3,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/domain/cards.ts",
+      "line": 4,
+      "complexity": 6,
+      "description": "Function 'validCard'"
+    },
+    {
+      "file": "design/src/domain/cards.ts",
+      "line": 8,
+      "complexity": 5,
+      "description": "Function 'validateHand'"
+    },
+    {
+      "file": "design/src/domain/cards.ts",
+      "line": 10,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/domain/cards.ts",
+      "line": 11,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/domain/cards.ts",
+      "line": 13,
+      "complexity": 1,
+      "description": "Function 'sameSuit'"
+    },
+    {
+      "file": "design/src/domain/cards.ts",
+      "line": 13,
+      "complexity": 2,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/domain/cards.ts",
+      "line": 14,
+      "complexity": 1,
+      "description": "Function 'consecutive'"
+    },
+    {
+      "file": "design/src/domain/cards.ts",
+      "line": 15,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/domain/cards.ts",
+      "line": 16,
+      "complexity": 2,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/domain/cards.ts",
+      "line": 18,
+      "complexity": 5,
+      "description": "Function 'isMeld'"
+    },
+    {
+      "file": "design/src/domain/cards.ts",
+      "line": 20,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/domain/cards.ts",
+      "line": 22,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/domain/cards.ts",
+      "line": 22,
+      "complexity": 2,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/domain/combinations.ts",
+      "line": 5,
+      "complexity": 1,
+      "description": "Function 'subset'"
+    },
+    {
+      "file": "design/src/domain/combinations.ts",
+      "line": 5,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/domain/combinations.ts",
+      "line": 6,
+      "complexity": 3,
+      "description": "Function 'melds'"
+    },
+    {
+      "file": "design/src/domain/combinations.ts",
+      "line": 14,
+      "complexity": 2,
+      "description": "Function 'cover'"
+    },
+    {
+      "file": "design/src/domain/combinations.ts",
+      "line": 16,
+      "complexity": 3,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/domain/combinations.ts",
+      "line": 18,
+      "complexity": 1,
+      "description": "Function 'closesPattern'"
+    },
+    {
+      "file": "design/src/domain/combinations.ts",
+      "line": 20,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/domain/combinations.ts",
+      "line": 22,
+      "complexity": 5,
+      "description": "Function 'coveredMasks'"
+    },
+    {
+      "file": "design/src/domain/combinations.ts",
+      "line": 30,
+      "complexity": 4,
+      "description": "Function 'remainders'"
+    },
+    {
+      "file": "design/src/domain/combinations.ts",
+      "line": 38,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/domain/combinations.ts",
+      "line": 40,
+      "complexity": 1,
+      "description": "Function 'minimumPenalty'"
+    },
+    {
+      "file": "design/src/domain/combinations.ts",
+      "line": 41,
+      "complexity": 3,
+      "description": "Function 'touchPenalty'"
+    },
+    {
+      "file": "design/src/domain/combinations.ts",
+      "line": 42,
+      "complexity": 2,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/domain/combinations.ts",
+      "line": 42,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/variants/apuntado/rules.ts",
+      "line": 4,
+      "complexity": 8,
+      "description": "Function 'actorDelta'"
+    },
+    {
+      "file": "design/src/variants/apuntado/rules.ts",
+      "line": 13,
+      "complexity": 7,
+      "description": "Method 'settle'"
+    },
+    {
+      "file": "design/src/variants/apuntado/rules.ts",
+      "line": 14,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/variants/apuntado/rules.ts",
+      "line": 15,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/variants/apuntado/rules.ts",
+      "line": 18,
+      "complexity": 2,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/variants/apuntado/rules.ts",
+      "line": 22,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/variants/apuntado/rules.ts",
+      "line": 23,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/variants/apuntado/rules.ts",
+      "line": 24,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/variants/apuntado/rules.ts",
+      "line": 24,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/variants/classic/rules.ts",
+      "line": 6,
+      "complexity": 4,
+      "description": "Method 'settle'"
+    },
+    {
+      "file": "design/src/variants/classic/rules.ts",
+      "line": 7,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/application/catalog.ts",
+      "line": 3,
+      "complexity": 1,
+      "description": "Class field initializer"
+    },
+    {
+      "file": "design/src/application/catalog.ts",
+      "line": 4,
+      "complexity": 3,
+      "description": "Constructor"
+    },
+    {
+      "file": "design/src/application/catalog.ts",
+      "line": 11,
+      "complexity": 2,
+      "description": "Method 'get'"
+    },
+    {
+      "file": "design/src/application/closeRound.ts",
+      "line": 4,
+      "complexity": 3,
+      "description": "Function 'authorize'"
+    },
+    {
+      "file": "design/src/application/closeRound.ts",
+      "line": 5,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/application/closeRound.ts",
+      "line": 8,
+      "complexity": 5,
+      "description": "Function 'validateState'"
+    },
+    {
+      "file": "design/src/application/closeRound.ts",
+      "line": 11,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/application/closeRound.ts",
+      "line": 14,
+      "complexity": 1,
+      "description": "Constructor"
+    },
+    {
+      "file": "design/src/application/closeRound.ts",
+      "line": 15,
+      "complexity": 3,
+      "description": "Method 'execute'"
+    },
+    {
+      "file": "design/src/application/closeRound.ts",
+      "line": 17,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/application/closeRound.ts",
+      "line": 19,
+      "complexity": 4,
+      "description": "Async method 'apply'"
+    },
+    {
+      "file": "design/src/application/view.ts",
+      "line": 2,
+      "complexity": 2,
+      "description": "Function 'authorizedView'"
+    },
+    {
+      "file": "design/src/application/view.ts",
+      "line": 3,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/application/view.ts",
+      "line": 5,
+      "complexity": 3,
+      "description": "Arrow function"
+    }
+  ]
+}

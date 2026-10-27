@@ -1,0 +1,39 @@
+name: Arquitectura Entregable 2
+on:
+  push:
+    branches: [entregable-2]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  architecture:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: arch_test
+          POSTGRES_PASSWORD: ephemeral_test_only
+          POSTGRES_DB: architecture_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U arch_test -d architecture_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run verify
+      - name: PostgreSQL entre conexiones
+        run: npm run test:postgres
+        env:
+          ARCH_TEST_DATABASE_URL: postgres://arch_test:ephemeral_test_only@localhost:5432/architecture_test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evidencia-arquitectura
+          path: docs/evidence/
