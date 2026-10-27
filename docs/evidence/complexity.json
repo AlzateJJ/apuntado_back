@@ -211,13 +211,7 @@
     {
       "file": "design/src/variants/apuntado/rules.ts",
       "line": 18,
-      "complexity": 2,
-      "description": "Arrow function"
-    },
-    {
-      "file": "design/src/variants/apuntado/rules.ts",
-      "line": 22,
-      "complexity": 1,
+      "complexity": 3,
       "description": "Arrow function"
     },
     {
@@ -234,7 +228,13 @@
     },
     {
       "file": "design/src/variants/apuntado/rules.ts",
-      "line": 24,
+      "line": 25,
+      "complexity": 1,
+      "description": "Arrow function"
+    },
+    {
+      "file": "design/src/variants/apuntado/rules.ts",
+      "line": 25,
       "complexity": 1,
       "description": "Arrow function"
     },

@@ -16,7 +16,8 @@ export const apuntado: Variant = Object.freeze({
     if (!actor) throw new Error('NOT_MEMBER');
     const delta = actorDelta(actor, closure);
     const changes = state.players.map(p => {
-      const change = p.id === actorId ? delta : -minimumPenalty(p.hand);
+      const penalty = minimumPenalty(p.hand);
+      const change = p.id === actorId ? delta : (penalty === 0 ? 0 : -penalty);
       return { playerId: p.id, before: p.score, delta: change, after: p.score + change };
     });
     const active = changes.filter(c => c.after > -101);

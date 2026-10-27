@@ -63,6 +63,7 @@ test('reintento concurrente produce un acta y un evento',async()=>{
   const store=new MemoryStore(state()); const service=new CloseRound(store,catalog);
   const [a,b]=await Promise.all([service.execute('game-1','ana',command),service.execute('game-1','ana',command)]);
   assert.deepEqual(a,b); assert.equal(store.operationCount(),1); assert.equal((await store.pending()).length,1);
+  assert.deepEqual(a,JSON.parse(JSON.stringify(a)),'La respuesta sobrevive al round-trip JSON sin -0');
 });
 test('dos cierres distintos: solo uno se confirma',async()=>{
   const store=new MemoryStore(state()); const service=new CloseRound(store,catalog);
